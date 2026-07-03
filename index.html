@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дашборд расписания доставки</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>📦 Расписание доставки</h1>
+        <div class="subtitle">Мониторинг синхронизации между AX ESHOP и сайтом</div>
+
+        <!-- Панель фильтров -->
+        <div class="filters" id="filterPanel">
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label for="product">Товар (артикул)</label>
+                    <select id="product">
+                        <option value="TEST-001">Тестовая позиция (все)</option>
+                        <option value="SKU-1001">Сумка SKU-1001</option>
+                        <option value="SKU-2002">Кроссовки SKU-2002</option>
+                        <option value="SKU-3003">Платье SKU-3003</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="donor">Склад-донор</label>
+                    <select id="donor">
+                        <option value="Копт1">Копт1</option>
+                        <option value="2001">2001</option>
+                        <option value="098">098</option>
+                        <option value="0512">0512</option>
+                        <option value="ALL">Все доноры</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="destination">Склад комплектации</label>
+                    <select id="destination">
+                        <option value="КоптИнтмаг">КоптИнтмаг</option>
+                        <option value="ИнтМаг">ИнтМаг</option>
+                        <option value="ДИнтМаг">ДИнтМаг</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="deliveryType">Тип доставки</label>
+                    <select id="deliveryType">
+                        <option value="ССД">ССД</option>
+                        <option value="ПВЗ">ПВЗ</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="deliveryCode">Код способа</label>
+                    <select id="deliveryCode">
+                        <!-- заполняется динамически -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label for="cardType">Тип карты клиента</label>
+                    <select id="cardType">
+                        <option value="White">Нет карты</option>
+                        <option value="White">White</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Black">Black</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="privilege">Привилегия</label>
+                    <select id="privilege">
+                        <option value="VIP_online">Нет привилегии</option>
+                        <option value="VIP_online">VIP_online</option>
+                        <option value="Orange+">Orange+</option>
+                        <option value="Black">Black</option>
+                        <option value="VIP_Outlet">VIP_Outlet</option>
+                        <option value="CC_Private">CC Private</option>
+                        <option value="Online_private">Online_private</option>
+                        <option value="PVZ_Select">PVZ Select</option>
+                    </select>
+                </div>
+
+                <div class="filter-group checkbox-group">
+                    <input type="checkbox" id="testMode" checked>
+                    <label for="testMode">Тестовая позиция (расчёт по всем донорам)</label>
+                </div>
+
+                <button class="btn-calculate" id="calcBtn">🚀 Рассчитать</button>
+            </div>
+        </div>
+
+        <!-- Результат -->
+        <div class="result-area">
+            <div id="resultPlaceholder" class="result-placeholder">
+                <span>📊</span>
+                <p>Выберите параметры и нажмите «Рассчитать»</p>
+            </div>
+
+            <div id="resultCard" class="result-card">
+                <!-- ПДД: горизонтальный календарь -->
+                <div class="pdd-block" id="pddBlock">
+                    <div class="pdd-label">📅 Плановая дата доставки</div>
+                    <div class="pdd-calendar" id="pddCalendar">
+                        <!-- заполняется скриптом -->
+                    </div>
+                </div>
+
+                <!-- Детализация -->
+                <h3 style="font-weight: 500; font-size: 1.1rem; margin-bottom: 0.5rem; color: #000;">Детализация расчёта
+                </h3>
+                <table class="stages-table" id="stagesTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">Донор</th>
+                            <th style="width: 20%;">Этап</th>
+                            <th style="width: 25%;">Начало</th>
+                            <th style="width: 25%;">Конец</th>
+                            <th style="width: 15%;">Код расписания</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stagesBody"></tbody>
+                </table>
+
+                <div class="info-row">
+                    <div><strong>Склад комплектации:</strong> <span id="selectedDestination">—</span></div>
+                    <div><strong>Тип доставки:</strong> <span id="selectedDeliveryType">—</span></div>
+                    <div><strong>Код способа:</strong> <span id="selectedDeliveryCode">—</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрипты: порядок важен! -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,387 @@
+/* ============================================================
+   Dashboard — Стили
+   ============================================================ */
+
+/* ---------- Reset / Base ---------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    background: #f5f7fb;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 1400px;
+    width: 100%;
+    background: white;
+    border-radius: 28px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    padding: 2rem 2.5rem;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    color: #99a0ad;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    border-left: 3px solid #f94f0d;
+    padding-left: 1rem;
+}
+
+/* ---------- Панель фильтров ---------- */
+.filters {
+    background: #f8faff;
+    border-radius: 20px;
+    border: 1px solid #e9edf4;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.filters-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1.2rem 2rem;
+}
+
+.filters-row:last-child {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 0 1 auto;
+    min-width: 130px;
+}
+
+.filter-group label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #99a0ad;
+}
+
+.filter-group select,
+.filter-group input[type="text"],
+.filter-group input[type="number"] {
+    padding: 0.5rem 0.8rem;
+    border: 1px solid #d9e0e9;
+    border-radius: 12px;
+    background: white;
+    font-size: 0.9rem;
+    color: #000;
+    transition: 0.2s;
+    width: 100%;
+    min-width: 130px;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    border-color: #f94f0d;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(249, 79, 13, 0.15);
+}
+
+.filter-group select:disabled {
+    background: #f0f2f5;
+    color: #99a0ad;
+    cursor: not-allowed;
+}
+
+.filter-group.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: auto;
+}
+
+.filter-group.checkbox-group label {
+    text-transform: none;
+    font-weight: 500;
+    color: #000;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.filter-group.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #f94f0d;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.btn-calculate {
+    background: #f94f0d;
+    color: white;
+    border: none;
+    padding: 0.6rem 2rem;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+
+.btn-calculate:hover {
+    background: #d93e0a;
+    transform: scale(1.02);
+}
+
+/* ---------- Результат ---------- */
+.result-area {
+    margin-top: 0.5rem;
+}
+
+.result-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    background: #fafcff;
+    border-radius: 24px;
+    border: 1px dashed #d0d9e6;
+    color: #99a0ad;
+    font-size: 1.1rem;
+}
+
+.result-placeholder span {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.result-card {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- Блок ПДД (горизонтальный календарь) ---------- */
+.pdd-block {
+    background: #fafcff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.pdd-block .pdd-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #99a0ad;
+    margin-bottom: 1rem;
+}
+
+.pdd-calendar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2rem;
+}
+
+.pdd-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70px;
+    padding: 0.5rem 0.2rem;
+    border-radius: 16px;
+    border: 2px solid transparent;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.pdd-day.selected {
+    border-color: #f94f0d;
+    background: rgba(249, 79, 13, 0.05);
+}
+
+.pdd-day .day-week {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #99a0ad;
+    text-transform: uppercase;
+}
+
+.pdd-day .day-number {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #000;
+    line-height: 1.2;
+}
+
+.pdd-day .day-month {
+    font-size: 0.6rem;
+    color: #99a0ad;
+    text-transform: uppercase;
+}
+
+.pdd-day .day-slot {
+    margin-top: 0.4rem;
+    padding: 0.25rem 0.8rem;
+    border-radius: 30px;
+    border: 1px solid #d9e0e9;
+    background: white;
+    font-size: 0.75rem;
+    color: #000;
+    cursor: pointer;
+    transition: 0.2s;
+    width: fit-content;
+}
+
+.pdd-day .day-slot.selected {
+    border-color: #f94f0d;
+    background: #f94f0d;
+    color: white;
+}
+
+/* ---------- Детализация (таблица с донорами) ---------- */
+.stages-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.stages-table th {
+    text-align: left;
+    padding: 0.6rem 1rem;
+    background: #f2f6fd;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #99a0ad;
+    border-radius: 12px 12px 0 0;
+}
+
+.stages-table td {
+    background: white;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid #edf2f9;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.stages-table tr:last-child td {
+    border-bottom: none;
+}
+
+.stage-name {
+    font-weight: 600;
+    color: #000;
+}
+
+.stage-dates {
+    color: #000;
+}
+
+.stage-code {
+    font-family: monospace;
+    font-size: 0.9rem;
+    background: #f0f4fe;
+    padding: 0.2rem 0.6rem;
+    border-radius: 8px;
+    color: #000;
+}
+
+.info-row {
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+    color: #99a0ad;
+    border-top: 1px solid #edf2f9;
+    padding-top: 1rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+/* ---------- Адаптивность ---------- */
+@media (max-width: 900px) {
+    .filters-row {
+        gap: 1rem;
+    }
+
+    .filter-group {
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 700px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .filters-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filters-row:last-child {
+        align-items: stretch;
+    }
+
+    .filter-group {
+        min-width: auto;
+    }
+
+    .btn-calculate {
+        width: 100%;
+        text-align: center;
+    }
+
+    .pdd-calendar {
+        gap: 0.5rem;
+    }
+
+    .pdd-day {
+        min-width: 55px;
+        padding: 0.3rem;
+    }
+
+    .pdd-day .day-number {
+        font-size: 1rem;
+    }
+
+    .stages-table th,
+    .stages-table td {
+        padding: 0.6rem;
+    }
+}
