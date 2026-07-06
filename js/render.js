@@ -76,9 +76,9 @@ function renderStages(allDonorData) {
             var endStr = formatDateShort(stage.end);
             var donorDisplay = (idx === 0) ? donor : '';
 
-            // Для этапа "ПДО" показываем прочерк в колонке "Конец"
-            var isPDO = (stage.name === 'ПДО');
-            var endDisplay = isPDO ? '—' : endStr;
+            // Для этапов "ПДО" и "ПДД" показываем прочерк в колонке "Конец"
+            var isEndlessStage = (stage.name === 'ПДО' || stage.name === 'ПДД');
+            var endDisplay = isEndlessStage ? '—' : endStr;
 
             html += '<tr>' +
                 '<td data-label="Донор">' + donorDisplay + '</td>' +
