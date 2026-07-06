@@ -27,12 +27,14 @@
                 </div>
 
                 <div class="filter-group">
-                    <label for="donor">Склад-донор</label>
+                    <label for="donor">Группа доноров</label>
                     <select id="donor">
-                        <option value="Копт1">Копт1</option>
-                        <option value="2001">2001</option>
-                        <option value="098">098</option>
-                        <option value="0512">0512</option>
+                        <option value="Коптево">Коптево</option>
+                        <option value="Сум">Сум</option>
+                        <option value="Браст">Браст</option>
+                        <option value="ДЛТ">ДЛТ</option>
+                        <option value="Оксмер">Оксмер</option>
+                        <option value="Бутики">Бутики</option>
                         <option value="ALL">Все доноры</option>
                     </select>
                 </div>
@@ -88,13 +90,22 @@
                 </div>
 
                 <div class="filter-group checkbox-group">
-                    <input type="checkbox" id="testMode" checked>
+                    <input type="checkbox" id="testMode">
                     <label for="testMode">Тестовая позиция (расчёт по всем донорам)</label>
                 </div>
 
                 <button class="btn-calculate" id="calcBtn">🚀 Рассчитать</button>
             </div>
         </div>
+
+        <!-- Лоадер -->
+        <div class="loader" id="loader">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Выполняется расчёт...</div>
+        </div>
+
+        <!-- Сообщение об ошибке -->
+        <div class="error-message" id="errorMessage"></div>
 
         <!-- Результат -->
         <div class="result-area">
@@ -120,8 +131,8 @@
                         <tr>
                             <th style="width: 15%;">Донор</th>
                             <th style="width: 20%;">Этап</th>
-                            <th style="width: 25%;">Начало</th>
-                            <th style="width: 25%;">Конец</th>
+                            <th style="width: 35%;">Начало</th>
+                            <th style="width: 15%;">Конец</th>
                             <th style="width: 15%;">Код расписания</th>
                         </tr>
                     </thead>
@@ -141,6 +152,8 @@
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/calculator.js"></script>
+    <script src="js/models.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/render.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/app.js"></script>
