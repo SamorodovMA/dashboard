@@ -4,58 +4,61 @@
 
 /**
  * Рендерит календарь ПДД (плановые даты доставки)
+ * Даты и интервалы отображаются отдельными строками с независимым выбором
  * @param {Date} deliveryDate — дата доставки лучшего донора
  */
 function renderPDD(deliveryDate) {
-    const pddCalendar = document.getElementById('pddCalendar');
-    const dates = getNextDays(APP.PDD_DAYS_COUNT);
-    const slots = APP.TIME_SLOTS;
+    var pddCalendar = document.getElementById('pddCalendar');
+    var dates = getNextDays(APP.PDD_DAYS_COUNT);
+    var slots = APP.TIME_SLOTS;
 
-    const selectedDateIndex = findClosestDateIndex(dates, deliveryDate);
-    const selectedSlotIndex = selectedDateIndex % slots.length;
+    var selectedDateIndex = findClosestDateIndex(dates, deliveryDate);
+    var selectedSlotIndex = 0; // по умолчанию первый слот
 
-    let html = '';
-    dates.forEach((d, dayIdx) => {
-        const dayLabel = getDayLabel(d, dayIdx);
-        const dayNumber = d.getDate();
-        const month = getMonthLabel(d);
-        const isSelectedDay = (dayIdx === selectedDateIndex);
-        const slotText = slots[dayIdx % slots.length];
-        const isSelectedSlot = (dayIdx === selectedDateIndex && (dayIdx % slots.length) === selectedSlotIndex);
+    // ---------- Строка с датами ----------
+    var datesHtml = '';
+    dates.forEach(function (d, dayIdx) {
+        var dayLabel = getDayLabel(d, dayIdx);
+        var dayNumber = d.getDate();
+        var month = getMonthLabel(d);
+        var isSelected = (dayIdx === selectedDateIndex);
 
-        html += `
-            <div class="pdd-day ${isSelectedDay ? 'selected' : ''}" data-day-index="${dayIdx}">
-                <div class="day-week">${dayLabel}</div>
-                <div class="day-number">${dayNumber}</div>
-                <div class="day-month">${month}</div>
-                <div class="day-slot ${isSelectedSlot ? 'selected' : ''}" data-day-index="${dayIdx}" data-slot-index="${dayIdx % slots.length}">${slotText}</div>
-            </div>
-        `;
+        datesHtml +=
+            '<div class="pdd-day ' + (isSelected ? 'selected' : '') + '" data-day-index="' + dayIdx + '">' +
+                '<div class="day-week">' + dayLabel + '</div>' +
+                '<div class="day-number">' + dayNumber + '</div>' +
+                '<div class="day-month">' + month + '</div>' +
+            '</div>';
     });
 
-    pddCalendar.innerHTML = html;
+    // ---------- Строка с интервалами ----------
+    var slotsHtml = '';
+    slots.forEach(function (slot, slotIdx) {
+        var isSelected = (slotIdx === selectedSlotIndex);
+        slotsHtml +=
+            '<div class="pdd-slot ' + (isSelected ? 'selected' : '') + '" data-slot-index="' + slotIdx + '">' +
+                slot +
+            '</div>';
+    });
 
-    // ---------- Обработчики кликов ----------
-    const dayElements = pddCalendar.querySelectorAll('.pdd-day');
-    const slotElements = pddCalendar.querySelectorAll('.day-slot');
+    pddCalendar.innerHTML =
+        '<div class="pdd-dates-row">' + datesHtml + '</div>' +
+        '<div class="pdd-slots-row">' + slotsHtml + '</div>';
 
-    function clearSelection() {
-        dayElements.forEach(el => el.classList.remove('selected'));
-        slotElements.forEach(el => el.classList.remove('selected'));
-    }
-
-    dayElements.forEach(dayEl => {
-        dayEl.addEventListener('click', function (e) {
-            if (e.target.classList.contains('day-slot')) return;
-            clearSelection();
+    // ---------- Обработчики кликов на даты ----------
+    var dayElements = pddCalendar.querySelectorAll('.pdd-day');
+    dayElements.forEach(function (el) {
+        el.addEventListener('click', function () {
+            dayElements.forEach(function (d) { d.classList.remove('selected'); });
             this.classList.add('selected');
         });
     });
 
-    slotElements.forEach(slotEl => {
-        slotEl.addEventListener('click', function (e) {
-            e.stopPropagation();
-            clearSelection();
+    // ---------- Обработчики кликов на интервалы ----------
+    var slotElements = pddCalendar.querySelectorAll('.pdd-slot');
+    slotElements.forEach(function (el) {
+        el.addEventListener('click', function () {
+            slotElements.forEach(function (s) { s.classList.remove('selected'); });
             this.classList.add('selected');
         });
     });
@@ -86,7 +89,7 @@ function renderStages(allDonorData) {
                 '<td class="stage-dates" data-label="Начало">' + startStr + '</td>' +
                 '<td class="stage-dates" data-label="Конец">' + endDisplay + '</td>' +
                 '<td data-label="Код"><span class="stage-code">' + stage.code + '</span></td>' +
-            '</tr>';
+                '</tr>';
         });
         html += '<tr style="height: 0.5rem;"><td colspan="5" style="background: transparent; border: none;"></td></tr>';
     });

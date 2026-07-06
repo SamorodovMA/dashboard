@@ -267,8 +267,15 @@ h1 {
 
 .pdd-calendar {
     display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ---------- Строка с датами ---------- */
+.pdd-dates-row {
+    display: flex;
     flex-wrap: wrap;
-    gap: clamp(0.3rem, 1.5vw, 1.5rem) clamp(0.3rem, 2vw, 2rem);
+    gap: clamp(0.3rem, 1.5vw, 1rem);
     justify-content: center;
 }
 
@@ -277,17 +284,24 @@ h1 {
     flex-direction: column;
     align-items: center;
     min-width: clamp(50px, 10vw, 70px);
-    padding: clamp(0.25rem, 0.8vw, 0.5rem) clamp(0.1rem, 0.5vw, 0.2rem);
+    padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.3rem, 0.5vw, 0.5rem);
     border-radius: 16px;
     border: 2px solid transparent;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
     cursor: pointer;
     flex: 0 1 auto;
+    background: var(--color-white);
+}
+
+.pdd-day:hover {
+    border-color: var(--color-border);
+    background: #f8faff;
 }
 
 .pdd-day.selected {
     border-color: var(--color-primary);
-    background: rgba(249, 79, 13, 0.05);
+    background: rgba(249, 79, 13, 0.08);
+    box-shadow: 0 0 0 3px rgba(249, 79, 13, 0.15);
 }
 
 .pdd-day .day-week {
@@ -310,24 +324,37 @@ h1 {
     text-transform: uppercase;
 }
 
-.pdd-day .day-slot {
-    margin-top: 0.4rem;
-    padding: 0.25rem clamp(0.4rem, 1vw, 0.8rem);
-    border-radius: 30px;
-    border: 1px solid var(--color-border);
-    background: var(--color-white);
-    font-size: clamp(0.65rem, 1.2vw, 0.75rem);
-    color: var(--color-text);
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
-    width: fit-content;
-    white-space: nowrap;
+/* ---------- Строка с интервалами ---------- */
+.pdd-slots-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(0.3rem, 1vw, 0.75rem);
+    justify-content: center;
 }
 
-.pdd-day .day-slot.selected {
+.pdd-slot {
+    padding: 0.4rem clamp(0.6rem, 1.5vw, 1rem);
+    border-radius: 30px;
+    border: 1.5px solid var(--color-border);
+    background: var(--color-white);
+    font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.pdd-slot:hover {
+    border-color: var(--color-primary);
+    background: rgba(249, 79, 13, 0.04);
+}
+
+.pdd-slot.selected {
     border-color: var(--color-primary);
     background: var(--color-primary);
     color: var(--color-white);
+    box-shadow: 0 2px 8px rgba(249, 79, 13, 0.3);
 }
 
 /* ---------- Детализация (таблица с донорами) ---------- */
