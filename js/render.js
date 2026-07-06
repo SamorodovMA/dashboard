@@ -76,11 +76,11 @@ function renderStages(allDonorData) {
             const endStr = formatDateShort(stage.end);
             const donorDisplay = (idx === 0) ? donor : '';
             html += `<tr>
-                <td>${donorDisplay}</td>
-                <td class="stage-name">${stage.name}</td>
-                <td class="stage-dates">${startStr}</td>
-                <td class="stage-dates">${endStr}</td>
-                <td><span class="stage-code">${stage.code}</span></td>
+                <td data-label="Донор">${donorDisplay}</td>
+                <td class="stage-name" data-label="Этап">${stage.name}</td>
+                <td class="stage-dates" data-label="Начало">${startStr}</td>
+                <td class="stage-dates" data-label="Конец">${endStr}</td>
+                <td data-label="Код"><span class="stage-code">${stage.code}</span></td>
             </tr>`;
         });
         html += `<tr style="height: 0.5rem;"><td colspan="5" style="background: transparent; border: none;"></td></tr>`;
