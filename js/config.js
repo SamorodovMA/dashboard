@@ -2,7 +2,11 @@
    config.js — Конфигурация приложения
    ============================================================ */
 
-const APP = {};
+var APP = {};
+
+// ---------- API Axapta ----------
+APP.apiBaseUrl = '';              // Базовый URL API (например, 'https://axapta.company.ru')
+APP.useMockData = true;           // true = мок-данные, false = реальные запросы к Axapta
 
 // ---------- Коды способов доставки ----------
 APP.deliveryCodes = {
