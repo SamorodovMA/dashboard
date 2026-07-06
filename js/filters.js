@@ -7,20 +7,20 @@
  * управляет доступностью селекта донора
  */
 function initFilters() {
-    const deliveryTypeSelect = document.getElementById('deliveryType');
-    const deliveryCodeSelect = document.getElementById('deliveryCode');
-    const donorSelect = document.getElementById('donor');
-    const testModeCheck = document.getElementById('testMode');
+    var deliveryTypeSelect = document.getElementById('deliveryType');
+    var deliveryCodeSelect = document.getElementById('deliveryCode');
+    var donorSelect = document.getElementById('donor');
+    var testModeCheck = document.getElementById('testMode');
 
     // ---------- Заполнение кодов способа доставки ----------
     function updateDeliveryCodes() {
-        const type = deliveryTypeSelect.value;
-        const codes = APP.deliveryCodes[type] || [];
+        var type = deliveryTypeSelect.value;
+        var codes = APP.deliveryCodes[type] || [];
         deliveryCodeSelect.innerHTML = '';
-        codes.forEach(code => {
-            const opt = document.createElement('option');
-            opt.value = code;
-            opt.textContent = code;
+        codes.forEach(function (item) {
+            var opt = document.createElement('option');
+            opt.value = item.code;
+            opt.textContent = item.code + ' — ' + item.label;
             deliveryCodeSelect.appendChild(opt);
         });
     }

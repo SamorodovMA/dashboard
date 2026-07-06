@@ -66,24 +66,29 @@ function renderPDD(deliveryDate) {
  * @param {Array} allDonorData
  */
 function renderStages(allDonorData) {
-    const stagesBody = document.getElementById('stagesBody');
-    let html = '';
+    var stagesBody = document.getElementById('stagesBody');
+    var html = '';
 
-    allDonorData.forEach(donorData => {
-        const donor = donorData.donor;
-        donorData.stages.forEach((stage, idx) => {
-            const startStr = formatDateShort(stage.start);
-            const endStr = formatDateShort(stage.end);
-            const donorDisplay = (idx === 0) ? donor : '';
-            html += `<tr>
-                <td data-label="Донор">${donorDisplay}</td>
-                <td class="stage-name" data-label="Этап">${stage.name}</td>
-                <td class="stage-dates" data-label="Начало">${startStr}</td>
-                <td class="stage-dates" data-label="Конец">${endStr}</td>
-                <td data-label="Код"><span class="stage-code">${stage.code}</span></td>
-            </tr>`;
+    allDonorData.forEach(function (donorData) {
+        var donor = donorData.donor;
+        donorData.stages.forEach(function (stage, idx) {
+            var startStr = formatDateShort(stage.start);
+            var endStr = formatDateShort(stage.end);
+            var donorDisplay = (idx === 0) ? donor : '';
+
+            // Для этапа "ПДО" показываем прочерк в колонке "Конец"
+            var isPDO = (stage.name === 'ПДО');
+            var endDisplay = isPDO ? '—' : endStr;
+
+            html += '<tr>' +
+                '<td data-label="Донор">' + donorDisplay + '</td>' +
+                '<td class="stage-name" data-label="Этап">' + stage.name + '</td>' +
+                '<td class="stage-dates" data-label="Начало">' + startStr + '</td>' +
+                '<td class="stage-dates" data-label="Конец">' + endDisplay + '</td>' +
+                '<td data-label="Код"><span class="stage-code">' + stage.code + '</span></td>' +
+            '</tr>';
         });
-        html += `<tr style="height: 0.5rem;"><td colspan="5" style="background: transparent; border: none;"></td></tr>`;
+        html += '<tr style="height: 0.5rem;"><td colspan="5" style="background: transparent; border: none;"></td></tr>';
     });
 
     stagesBody.innerHTML = html;
