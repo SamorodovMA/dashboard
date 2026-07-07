@@ -207,6 +207,167 @@ h1 {
     transform: scale(0.98);
 }
 
+/* ---------- Блок поиска по заказу ---------- */
+.order-search-block {
+    background: #f8faff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
+    padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+    margin-bottom: clamp(1rem, 3vw, 2rem);
+}
+
+.order-search-header {
+    margin-bottom: 0.75rem;
+}
+
+.order-search-title {
+    font-weight: 600;
+    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+    color: var(--color-text);
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.order-search-hint {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.order-search-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+.order-search-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1 1 280px;
+    min-width: 200px;
+}
+
+.order-search-input-group label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+}
+
+.order-search-input-group input[type="text"] {
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+    font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+    color: var(--color-text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+
+.order-search-input-group input[type="text"]:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(249, 79, 13, 0.15);
+}
+
+/* ---------- Результат поиска по заказу ---------- */
+.order-calc-result {
+    display: none;
+    margin-top: 1rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.order-calc-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-sm);
+    padding: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.order-calc-card.order-calc-error {
+    border-color: var(--color-error-border);
+    background: var(--color-error-bg);
+}
+
+.order-calc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-table-border);
+}
+
+.order-calc-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-text);
+}
+
+.order-calc-badge {
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.8rem;
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 30px;
+    font-weight: 600;
+}
+
+/* ---------- Сетка информации о заказе ---------- */
+.order-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.order-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.order-info-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+}
+
+.order-info-value {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+/* ---------- Блок с плановой датой доставки в карточке заказа ---------- */
+.order-calc-delivery {
+    background: rgba(249, 79, 13, 0.06);
+    border: 1px solid rgba(249, 79, 13, 0.15);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+}
+
+.order-calc-delivery strong {
+    color: var(--color-primary);
+}
+
+/* ---------- Таблица этапов в карточке заказа ---------- */
+.order-stages-table {
+    margin-top: 0.25rem;
+}
+
 /* ---------- Результат ---------- */
 .result-area {
     margin-top: 0.5rem;
@@ -467,6 +628,39 @@ h1 {
 /* ============================================================
    АДАПТИВНОСТЬ
    ============================================================ */
+
+/* ---------- Адаптивность для блока поиска по заказу ---------- */
+@media (max-width: 768px) {
+    .order-search-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .order-search-input-group {
+        flex: 1 1 100%;
+        min-width: auto;
+    }
+
+    .order-info-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .order-calc-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .order-calc-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+    }
+}
 
 /* ---------- Планшеты (до 900px) ---------- */
 @media (max-width: 900px) {

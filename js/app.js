@@ -17,6 +17,16 @@
 
         // Авторасчёт при загрузке страницы
         window.addEventListener('DOMContentLoaded', calculate);
+
+        // ---------- Блок поиска по заказу ----------
+        document.getElementById('orderCalcBtn').addEventListener('click', loadOrderCalculation);
+
+        // Поиск по заказу по Enter в поле ввода
+        document.getElementById('orderIdInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                loadOrderCalculation();
+            }
+        });
     }
 
     // ---------- Основная функция расчёта ----------
@@ -57,6 +67,28 @@
                 // Ошибка — показываем сообщение
                 hideLoader();
                 showError(error.message || 'Произошла ошибка при расчёте');
+            });
+    }
+
+    // ---------- Загрузка детализации расчёта по заказу ----------
+    function loadOrderCalculation() {
+        var input = document.getElementById('orderIdInput');
+        var orderId = input.value.trim();
+
+        if (!orderId) {
+            showOrderError('Введите номер заказа');
+            return;
+        }
+
+        showOrderLoader();
+
+        API.getOrderCalculation(orderId)
+            .then(function (response) {
+                var data = orderCalculationToInternal(response);
+                renderOrderCalculation(data);
+            })
+            .catch(function (error) {
+                showOrderError(error.message || 'Ошибка загрузки расчёта заказа');
             });
     }
 

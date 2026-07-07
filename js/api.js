@@ -93,6 +93,36 @@ API.healthCheck = function () {
         .catch(function () { return false; });
 };
 
+/**
+ * Запрашивает детализацию расчёта по номеру заказа.
+ * @param {string} orderId — номер заказа в Axapta
+ * @returns {Promise<Object>}
+ */
+API.getOrderCalculation = function (orderId) {
+    if (APP.useMockData) {
+        return API._mockOrderCalculation(orderId);
+    }
+
+    var url = API.getBaseUrl() + '/api/orders/' + encodeURIComponent(orderId) + '/calculation';
+
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(function (response) {
+        if (response.status === 404) {
+            return response.json().then(function (err) {
+                throw new Error(err.message || 'Заказ не найден');
+            });
+        }
+        if (!response.ok) {
+            throw new Error('Ошибка загрузки расчёта заказа: ' + response.status);
+        }
+        return response.json();
+    });
+};
+
 /* ============================================================
    Мок-данные (пока API Axapta не готов)
    ============================================================ */
@@ -144,6 +174,24 @@ API._mockCalculate = function (params) {
                 deliveryCode: params.deliveryCode
             });
         }, 300); // 300ms имитация сети
+};
+
+/**
+ * Мок-функция получения расчёта по заказу
+ * @param {string} orderId
+ * @returns {Promise<Object>}
+ */
+API._mockOrderCalculation = function (orderId) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            var orderData = APP.mockOrders[orderId];
+            if (!orderData) {
+                reject(new Error('Заказ ' + orderId + ' не найден'));
+                return;
+            }
+            // Возвращаем копию, чтобы не мутировать оригинал
+            resolve(JSON.parse(JSON.stringify(orderData)));
+        }, 400); // 400ms имитация сети
     });
 };
 

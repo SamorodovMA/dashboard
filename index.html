@@ -98,6 +98,22 @@
             </div>
         </div>
 
+        <!-- Блок поиска по заказу -->
+        <div class="order-search-block">
+            <div class="order-search-header">
+                <span class="order-search-title">🔍 Детализация расчёта по заказу</span>
+                <span class="order-search-hint">Введите номер заказа из Axapta для просмотра готового расчёта</span>
+            </div>
+            <div class="order-search-row">
+                <div class="order-search-input-group">
+                    <label for="orderIdInput">Номер заказа</label>
+                    <input type="text" id="orderIdInput" placeholder="Например: AX-2026-001234" value="AX-2026-001234">
+                </div>
+                <button class="btn-calculate" id="orderCalcBtn">📋 Показать расчёт</button>
+            </div>
+            <div id="orderCalcResult" class="order-calc-result"></div>
+        </div>
+
         <!-- Лоадер -->
         <div class="loader" id="loader">
             <div class="loader-spinner"></div>

@@ -36,5 +36,31 @@ function calculationResponseToInternal(dto) {
         destination: dto.destination,
         deliveryType: dto.deliveryType,
         deliveryCode: dto.deliveryCode
+}
+
+/**
+ * Преобразует OrderCalculationDto из API во внутренний формат
+ * @param {Object} dto — ответ от GET /api/orders/{orderId}/calculation
+ * @returns {Object}
+ */
+function orderCalculationToInternal(dto) {
+    return {
+        orderId: dto.orderId,
+        product: dto.product,
+        cardType: dto.cardType,
+        privilege: dto.privilege,
+        donor: dto.donor,
+        destination: dto.destination,
+        deliveryType: dto.deliveryType,
+        deliveryCode: dto.deliveryCode,
+        stages: dto.stages.map(function (s) {
+            return {
+                name: s.name,
+                start: new Date(s.start),
+                end: s.end ? new Date(s.end) : null,
+                code: s.code
+            };
+        }),
+        deliveryDate: new Date(dto.deliveryDate)
     };
 }

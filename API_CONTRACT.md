@@ -154,7 +154,93 @@ _Определяется командой Axapta. Рекомендуется:_
 
 ---
 
-### 2.2 GET /api/filters — Справочники фильтров
+### 2.2 GET /api/orders/{orderId}/calculation — Детализация расчёта по заказу
+
+Возвращает уже готовый расчёт по конкретному заказу из Axapta.
+
+#### Request
+
+```
+GET /api/orders/{orderId}/calculation
+```
+
+| Поле | Тип | Обязательное | Описание |
+|------|-----|-------------|----------|
+| `orderId` | string | да | Номер заказа в Axapta (например, `AX-2026-001234`) |
+
+#### Response (200 OK)
+
+```json
+{
+  "orderId": "AX-2026-001234",
+  "product": "TEST-001",
+  "cardType": "White",
+  "privilege": "VIP_online",
+  "donor": "Коптево",
+  "destination": "КоптИнтмаг",
+  "deliveryType": "ССД",
+  "deliveryCode": "112b",
+  "stages": [
+    {
+      "name": "Подбор",
+      "start": "2026-07-06T09:00:00Z",
+      "end": "2026-07-06T09:30:00Z",
+      "code": "LS04307829"
+    },
+    {
+      "name": "Перемещение",
+      "start": "2026-07-06T09:30:00Z",
+      "end": "2026-07-06T10:30:00Z",
+      "code": "LS04307829"
+    },
+    {
+      "name": "Упаковка",
+      "start": "2026-07-06T10:30:00Z",
+      "end": "2026-07-06T12:00:00Z",
+      "code": "PS01965423"
+    },
+    {
+      "name": "ПДО",
+      "start": "2026-07-06T12:00:00Z",
+      "end": null,
+      "code": "DS00832254"
+    },
+    {
+      "name": "ПДД",
+      "start": "2026-07-06T13:00:00Z",
+      "end": null,
+      "code": "DS00832254"
+    }
+  ],
+  "deliveryDate": "2026-07-06T13:00:00Z"
+}
+```
+
+| Поле | Тип | Описание |
+|------|-----|----------|
+| `orderId` | string | Номер заказа (эхо) |
+| `product` | string | Артикул товара |
+| `cardType` | string | Тип карты клиента |
+| `privilege` | string | Привилегия клиента |
+| `donor` | string | Донор, с которого подобран товар |
+| `destination` | string | Склад комплектации |
+| `deliveryType` | string | Тип доставки |
+| `deliveryCode` | string | Код способа доставки |
+| `stages` | Stage[] | Массив этапов обработки заказа |
+| `deliveryDate` | string (ISO 8601) | Плановая дата доставки |
+
+#### Error Response (404 Not Found)
+
+```json
+{
+  "status": 404,
+  "message": "Заказ AX-2026-999999 не найден"
+}
+```
+
+---
+
+### 2.3 GET /api/filters — Справочники фильтров
 
 Возвращает списки доступных значений для фильтров.
 

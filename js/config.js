@@ -120,3 +120,61 @@ APP.TIME_SLOTS = [
 
 // ---------- Количество дней для календаря ПДД ----------
 APP.PDD_DAYS_COUNT = 7;
+
+// ---------- Мок-данные заказов для блока "Детализация расчёта по заказу" ----------
+APP.mockOrders = {
+    'AX-2026-001234': {
+        orderId: 'AX-2026-001234',
+        product: 'TEST-001',
+        cardType: 'White',
+        privilege: 'VIP_online',
+        donor: 'Коптево',
+        destination: 'КоптИнтмаг',
+        deliveryType: 'ССД',
+        deliveryCode: '112b',
+        stages: [
+            { name: 'Подбор',       start: '2026-07-06T09:00:00Z', end: '2026-07-06T09:30:00Z', code: 'LS04307829' },
+            { name: 'Перемещение',  start: '2026-07-06T09:30:00Z', end: '2026-07-06T10:30:00Z', code: 'LS04307829' },
+            { name: 'Упаковка',     start: '2026-07-06T10:30:00Z', end: '2026-07-06T12:00:00Z', code: 'PS01965423' },
+            { name: 'ПДО',          start: '2026-07-06T12:00:00Z', end: null,                    code: 'DS00832254' },
+            { name: 'ПДД',          start: '2026-07-06T13:00:00Z', end: null,                    code: 'DS00832254' }
+        ],
+        deliveryDate: '2026-07-06T13:00:00Z'
+    },
+    'AX-2026-001235': {
+        orderId: 'AX-2026-001235',
+        product: 'SKU-1001',
+        cardType: 'Orange',
+        privilege: 'Orange+',
+        donor: 'Сум',
+        destination: 'ИнтМаг',
+        deliveryType: 'ССД',
+        deliveryCode: '29b',
+        stages: [
+            { name: 'Подбор',       start: '2026-07-07T10:00:00Z', end: '2026-07-07T11:00:00Z', code: 'LS04307829' },
+            { name: 'Перемещение',  start: '2026-07-07T11:00:00Z', end: '2026-07-07T13:00:00Z', code: 'LS04307829' },
+            { name: 'Упаковка',     start: '2026-07-07T13:00:00Z', end: '2026-07-07T14:30:00Z', code: 'PS01965423' },
+            { name: 'ПДО',          start: '2026-07-07T14:30:00Z', end: null,                    code: 'DS00832254' },
+            { name: 'ПДД',          start: '2026-07-08T10:00:00Z', end: null,                    code: 'DS00832254' }
+        ],
+        deliveryDate: '2026-07-08T10:00:00Z'
+    },
+    'AX-2026-001236': {
+        orderId: 'AX-2026-001236',
+        product: 'SKU-2002',
+        cardType: 'Black',
+        privilege: 'Black',
+        donor: 'Браст',
+        destination: 'ДИнтМаг',
+        deliveryType: 'ПВЗ',
+        deliveryCode: '100',
+        stages: [
+            { name: 'Подбор',       start: '2026-07-08T08:00:00Z', end: '2026-07-08T09:00:00Z', code: 'LS04307829' },
+            { name: 'Перемещение',  start: '2026-07-08T09:00:00Z', end: '2026-07-08T12:00:00Z', code: 'LS04307829' },
+            { name: 'Упаковка',     start: '2026-07-08T12:00:00Z', end: '2026-07-08T14:00:00Z', code: 'PS01965423' },
+            { name: 'ПДО',          start: '2026-07-08T14:00:00Z', end: null,                    code: 'DS00832254' },
+            { name: 'ПДД',          start: '2026-07-09T12:00:00Z', end: null,                    code: 'DS00832254' }
+        ],
+        deliveryDate: '2026-07-09T12:00:00Z'
+    }
+};
