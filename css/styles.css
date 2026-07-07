@@ -83,6 +83,74 @@ h1 {
     padding-left: clamp(0.5rem, 1.5vw, 1rem);
 }
 
+/* ---------- Навигационное меню (табы) ---------- */
+.tab-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: clamp(1rem, 3vw, 2rem);
+    border-bottom: 2px solid var(--color-border-light);
+    padding-bottom: 0;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+    position: relative;
+    font-family: var(--font-family);
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    color: var(--color-text);
+    background: rgba(249, 79, 13, 0.04);
+}
+
+.tab-btn.active {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: 2px 2px 0 0;
+}
+
+.tab-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.tab-label {
+    line-height: 1;
+}
+
+/* ---------- Контент вкладок ---------- */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.25s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
 /* ---------- Панель фильтров ---------- */
 .filters {
     background: #f8faff;

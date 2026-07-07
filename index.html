@@ -13,153 +13,170 @@
         <h1>📦 Расписание доставки</h1>
         <div class="subtitle">Мониторинг синхронизации между AX ESHOP и сайтом</div>
 
-        <!-- Панель фильтров -->
-        <div class="filters" id="filterPanel">
-            <div class="filters-row">
-                <div class="filter-group">
-                    <label for="product">Товар (артикул)</label>
-                    <select id="product">
-                        <option value="TEST-001">Тестовая позиция (все)</option>
-                        <option value="SKU-1001">Сумка SKU-1001</option>
-                        <option value="SKU-2002">Кроссовки SKU-2002</option>
-                        <option value="SKU-3003">Платье SKU-3003</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label for="donor">Группа доноров</label>
-                    <select id="donor">
-                        <option value="Коптево">Коптево</option>
-                        <option value="Сум">Сум</option>
-                        <option value="Браст">Браст</option>
-                        <option value="ДЛТ">ДЛТ</option>
-                        <option value="Оксмер">Оксмер</option>
-                        <option value="Бутики">Бутики</option>
-                        <option value="ALL">Все доноры</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label for="destination">Склад комплектации</label>
-                    <select id="destination">
-                        <option value="КоптИнтмаг">КоптИнтмаг</option>
-                        <option value="ИнтМаг">ИнтМаг</option>
-                        <option value="ДИнтМаг">ДИнтМаг</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label for="deliveryType">Тип доставки</label>
-                    <select id="deliveryType">
-                        <option value="ССД">ССД</option>
-                        <option value="ПВЗ">ПВЗ</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label for="deliveryCode">Код способа</label>
-                    <select id="deliveryCode">
-                        <!-- заполняется динамически -->
-                    </select>
-                </div>
-            </div>
-
-            <div class="filters-row">
-                <div class="filter-group">
-                    <label for="cardType">Тип карты клиента</label>
-                    <select id="cardType">
-                        <option value="White">Нет карты</option>
-                        <option value="White">White</option>
-                        <option value="Orange">Orange</option>
-                        <option value="Black">Black</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label for="privilege">Привилегия</label>
-                    <select id="privilege">
-                        <option value="VIP_online">Нет привилегии</option>
-                        <option value="VIP_online">VIP_online</option>
-                        <option value="Orange+">Orange+</option>
-                        <option value="Black">Black</option>
-                        <option value="VIP_Outlet">VIP_Outlet</option>
-                        <option value="CC_Private">CC Private</option>
-                        <option value="Online_private">Online_private</option>
-                        <option value="PVZ_Select">PVZ Select</option>
-                    </select>
-                </div>
-
-                <div class="filter-group checkbox-group">
-                    <input type="checkbox" id="testMode">
-                    <label for="testMode">Тестовая позиция (расчёт по всем донорам)</label>
-                </div>
-
-                <button class="btn-calculate" id="calcBtn">🚀 Рассчитать</button>
-            </div>
+        <!-- Навигационное меню (табы) -->
+        <div class="tab-nav" id="tabNav">
+            <button class="tab-btn active" data-tab="donors">
+                <span class="tab-icon">📊</span>
+                <span class="tab-label">Детализация по донорам</span>
+            </button>
+            <button class="tab-btn" data-tab="order">
+                <span class="tab-icon">🔍</span>
+                <span class="tab-label">Детализация по заказу</span>
+            </button>
         </div>
 
-        <!-- Блок поиска по заказу -->
-        <div class="order-search-block">
-            <div class="order-search-header">
-                <span class="order-search-title">🔍 Детализация расчёта по заказу</span>
-                <span class="order-search-hint">Введите номер заказа из Axapta для просмотра готового расчёта</span>
-            </div>
-            <div class="order-search-row">
-                <div class="order-search-input-group">
-                    <label for="orderIdInput">Номер заказа</label>
-                    <input type="text" id="orderIdInput" placeholder="Например: AX-2026-001234" value="AX-2026-001234">
-                </div>
-                <button class="btn-calculate" id="orderCalcBtn">📋 Показать расчёт</button>
-            </div>
-            <div id="orderCalcResult" class="order-calc-result"></div>
-        </div>
+        <!-- Вкладка: Детализация по донорам -->
+        <div class="tab-content active" id="tabDonors">
+            <!-- Панель фильтров -->
+            <div class="filters" id="filterPanel">
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label for="product">Товар (артикул)</label>
+                        <select id="product">
+                            <option value="TEST-001">Тестовая позиция (все)</option>
+                            <option value="SKU-1001">Сумка SKU-1001</option>
+                            <option value="SKU-2002">Кроссовки SKU-2002</option>
+                            <option value="SKU-3003">Платье SKU-3003</option>
+                        </select>
+                    </div>
 
-        <!-- Лоадер -->
-        <div class="loader" id="loader">
-            <div class="loader-spinner"></div>
-            <div class="loader-text">Выполняется расчёт...</div>
-        </div>
+                    <div class="filter-group">
+                        <label for="donor">Группа доноров</label>
+                        <select id="donor">
+                            <option value="Коптево">Коптево</option>
+                            <option value="Сум">Сум</option>
+                            <option value="Браст">Браст</option>
+                            <option value="ДЛТ">ДЛТ</option>
+                            <option value="Оксмер">Оксмер</option>
+                            <option value="Бутики">Бутики</option>
+                            <option value="ALL">Все доноры</option>
+                        </select>
+                    </div>
 
-        <!-- Сообщение об ошибке -->
-        <div class="error-message" id="errorMessage"></div>
+                    <div class="filter-group">
+                        <label for="destination">Склад комплектации</label>
+                        <select id="destination">
+                            <option value="КоптИнтмаг">КоптИнтмаг</option>
+                            <option value="ИнтМаг">ИнтМаг</option>
+                            <option value="ДИнтМаг">ДИнтМаг</option>
+                        </select>
+                    </div>
 
-        <!-- Результат -->
-        <div class="result-area">
-            <div id="resultPlaceholder" class="result-placeholder">
-                <span>📊</span>
-                <p>Выберите параметры и нажмите «Рассчитать»</p>
-            </div>
+                    <div class="filter-group">
+                        <label for="deliveryType">Тип доставки</label>
+                        <select id="deliveryType">
+                            <option value="ССД">ССД</option>
+                            <option value="ПВЗ">ПВЗ</option>
+                        </select>
+                    </div>
 
-            <div id="resultCard" class="result-card">
-                <!-- ПДД: горизонтальный календарь -->
-                <div class="pdd-block" id="pddBlock">
-                    <div class="pdd-label">📅 Плановая дата доставки</div>
-                    <div class="pdd-calendar" id="pddCalendar">
-                        <!-- заполняется скриптом -->
+                    <div class="filter-group">
+                        <label for="deliveryCode">Код способа</label>
+                        <select id="deliveryCode">
+                            <!-- заполняется динамически -->
+                        </select>
                     </div>
                 </div>
 
-                <!-- Детализация -->
-                <h3 style="font-weight: 500; font-size: 1.1rem; margin-bottom: 0.5rem; color: #000;">Детализация расчёта
-                </h3>
-                <table class="stages-table" id="stagesTable">
-                    <thead>
-                        <tr>
-                            <th style="width: 15%;">Донор</th>
-                            <th style="width: 20%;">Этап</th>
-                            <th style="width: 35%;">Начало</th>
-                            <th style="width: 15%;">Конец</th>
-                            <th style="width: 15%;">Код расписания</th>
-                        </tr>
-                    </thead>
-                    <tbody id="stagesBody"></tbody>
-                </table>
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label for="cardType">Тип карты клиента</label>
+                        <select id="cardType">
+                            <option value="White">Нет карты</option>
+                            <option value="White">White</option>
+                            <option value="Orange">Orange</option>
+                            <option value="Black">Black</option>
+                        </select>
+                    </div>
 
-                <div class="info-row">
-                    <div><strong>Склад комплектации:</strong> <span id="selectedDestination">—</span></div>
-                    <div><strong>Тип доставки:</strong> <span id="selectedDeliveryType">—</span></div>
-                    <div><strong>Код способа:</strong> <span id="selectedDeliveryCode">—</span></div>
+                    <div class="filter-group">
+                        <label for="privilege">Привилегия</label>
+                        <select id="privilege">
+                            <option value="VIP_online">Нет привилегии</option>
+                            <option value="VIP_online">VIP_online</option>
+                            <option value="Orange+">Orange+</option>
+                            <option value="Black">Black</option>
+                            <option value="VIP_Outlet">VIP_Outlet</option>
+                            <option value="CC_Private">CC Private</option>
+                            <option value="Online_private">Online_private</option>
+                            <option value="PVZ_Select">PVZ Select</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group checkbox-group">
+                        <input type="checkbox" id="testMode">
+                        <label for="testMode">Тестовая позиция (расчёт по всем донорам)</label>
+                    </div>
+
+                    <button class="btn-calculate" id="calcBtn">🚀 Рассчитать</button>
                 </div>
+            </div>
+
+            <!-- Лоадер (доноры) -->
+            <div class="loader" id="loader">
+                <div class="loader-spinner"></div>
+                <div class="loader-text">Выполняется расчёт...</div>
+            </div>
+
+            <!-- Сообщение об ошибке -->
+            <div class="error-message" id="errorMessage"></div>
+
+            <!-- Результат -->
+            <div class="result-area">
+                <div id="resultPlaceholder" class="result-placeholder">
+                    <span>📊</span>
+                    <p>Выберите параметры и нажмите «Рассчитать»</p>
+                </div>
+
+                <div id="resultCard" class="result-card">
+                    <!-- ПДД: горизонтальный календарь -->
+                    <div class="pdd-block" id="pddBlock">
+                        <div class="pdd-label">📅 Плановая дата доставки</div>
+                        <div class="pdd-calendar" id="pddCalendar">
+                            <!-- заполняется скриптом -->
+                        </div>
+                    </div>
+
+                    <!-- Детализация -->
+                    <h3 style="font-weight: 500; font-size: 1.1rem; margin-bottom: 0.5rem; color: #000;">Детализация расчёта
+                    </h3>
+                    <table class="stages-table" id="stagesTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Донор</th>
+                                <th style="width: 20%;">Этап</th>
+                                <th style="width: 35%;">Начало</th>
+                                <th style="width: 15%;">Конец</th>
+                                <th style="width: 15%;">Код расписания</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stagesBody"></tbody>
+                    </table>
+
+                    <div class="info-row">
+                        <div><strong>Склад комплектации:</strong> <span id="selectedDestination">—</span></div>
+                        <div><strong>Тип доставки:</strong> <span id="selectedDeliveryType">—</span></div>
+                        <div><strong>Код способа:</strong> <span id="selectedDeliveryCode">—</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка: Детализация по заказу -->
+        <div class="tab-content" id="tabOrder">
+            <div class="order-search-block">
+                <div class="order-search-header">
+                    <span class="order-search-title">🔍 Детализация расчёта по заказу</span>
+                    <span class="order-search-hint">Введите номер заказа из Axapta для просмотра готового расчёта</span>
+                </div>
+                <div class="order-search-row">
+                    <div class="order-search-input-group">
+                        <label for="orderIdInput">Номер заказа</label>
+                        <input type="text" id="orderIdInput" placeholder="Например: AX-2026-001234" value="AX-2026-001234">
+                    </div>
+                    <button class="btn-calculate" id="orderCalcBtn">📋 Показать расчёт</button>
+                </div>
+                <div id="orderCalcResult" class="order-calc-result"></div>
             </div>
         </div>
     </div>

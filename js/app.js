@@ -7,6 +7,7 @@
 
     // ---------- Инициализация ----------
     function init() {
+        initTabs();
         initFilters();
 
         // Кнопка расчёта
@@ -27,6 +28,26 @@
 
         // Авторасчёт при загрузке страницы
         calculate();
+    }
+
+    // ---------- Переключение вкладок (табов) ----------
+    function initTabs() {
+        var tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                // Убираем active со всех кнопок и контента
+                tabBtns.forEach(function (b) { b.classList.remove('active'); });
+                document.querySelectorAll('.tab-content').forEach(function (c) { c.classList.remove('active'); });
+
+                // Активируем текущую кнопку и соответствующий контент
+                this.classList.add('active');
+                var tabId = this.getAttribute('data-tab');
+                var contentEl = document.getElementById('tab' + tabId.charAt(0).toUpperCase() + tabId.slice(1));
+                if (contentEl) {
+                    contentEl.classList.add('active');
+                }
+            }.bind(btn));
+        });
     }
 
     // ---------- Основная функция расчёта ----------
