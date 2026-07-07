@@ -36,6 +36,7 @@ function calculationResponseToInternal(dto) {
         destination: dto.destination,
         deliveryType: dto.deliveryType,
         deliveryCode: dto.deliveryCode
+    };
 }
 
 /**
