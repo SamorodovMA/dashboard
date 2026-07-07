@@ -173,7 +173,8 @@ API._mockCalculate = function (params) {
                 deliveryType: params.deliveryType,
                 deliveryCode: params.deliveryCode
             });
-        }, 300); // 300ms имитация сети
+        }, 300);
+    });
 };
 
 /**
@@ -189,9 +190,8 @@ API._mockOrderCalculation = function (orderId) {
                 reject(new Error('Заказ ' + orderId + ' не найден'));
                 return;
             }
-            // Возвращаем копию, чтобы не мутировать оригинал
             resolve(JSON.parse(JSON.stringify(orderData)));
-        }, 400); // 400ms имитация сети
+        }, 400);
     });
 };
 

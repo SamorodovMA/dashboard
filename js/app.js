@@ -15,9 +15,6 @@
         // Авторасчёт при изменении тестового режима
         document.getElementById('testMode').addEventListener('change', calculate);
 
-        // Авторасчёт при загрузке страницы
-        window.addEventListener('DOMContentLoaded', calculate);
-
         // ---------- Блок поиска по заказу ----------
         document.getElementById('orderCalcBtn').addEventListener('click', loadOrderCalculation);
 
@@ -27,6 +24,9 @@
                 loadOrderCalculation();
             }
         });
+
+        // Авторасчёт при загрузке страницы
+        calculate();
     }
 
     // ---------- Основная функция расчёта ----------
